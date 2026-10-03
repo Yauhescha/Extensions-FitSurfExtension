@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>FitSurf — сегодня</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="popup-root">
+    <h1>Сегодня</h1>
+    <div id="today-date" class="subtitle"></div>
+
+    <div id="summary-container"></div>
+
+    <div class="divider"></div>
+
+    <h2>Добавить вручную</h2>
+    <div class="manual-row">
+      <select id="manual-exercise"></select>
+      <input id="manual-amount" type="number" min="1" value="10" />
+      <button id="manual-add">Добавить</button>
+    </div>
+    <div id="manual-status" class="status"></div>
+
+    <div class="divider"></div>
+    <a href="options.html" target="_blank" class="link-options">Открыть настройки</a>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

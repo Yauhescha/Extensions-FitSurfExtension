@@ -1,0 +1,40 @@
+{
+  "manifest_version": 3,
+  "name": "FitSurf — напоминания о спорте от Hescha",
+  "version": "1.0.0",
+  "description": "Напоминания о спортивных упражнениях при долгом серфинге в интернете. Статистика, упражнения, импорт/экспорт. Hescha тебе напомнит",
+  "permissions": [
+    "storage",
+    "tabs",
+    "alarms"
+  ],
+  "icons": {
+   "16": "16.png",
+   "32": "32.png",
+   "48": "48.png",
+   "128": "128.png"
+ },
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "FitSurf",
+    "default_popup": "popup.html"
+  },
+  "options_page": "options.html",
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "contentScript.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

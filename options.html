@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>FitSurf — настройки</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="page">
+    <h1>FitSurf — настройки и статистика</h1>
+
+    <section class="section">
+      <h2>Глобальные настройки</h2>
+      <div class="field-row">
+        <label>
+          Минимальный интервал между уведомлениями (мин):
+          <input type="number" id="global-cooldown" min="1" />
+        </label>
+      </div>
+      <div class="field-row">
+        <label>
+          Если не было уведомлений дольше (мин), напомнить в любом случае:
+          <input type="number" id="global-max-interval" min="0" />
+        </label>
+      </div>
+      <div class="field-row">
+        <label>
+          Тип уведомления по умолчанию:
+          <select id="default-notification-type">
+            <option value="blocking">Блокирующее модальное</option>
+            <option value="nonblocking">Неблокирующее уведомление</option>
+          </select>
+        </label>
+      </div>
+      <div class="field-row">
+        <label>
+          <input type="checkbox" id="pause-media" />
+          Ставит видео/аудио на паузу при появлении окна
+        </label>
+      </div>
+      <button id="save-global">Сохранить глобальные настройки</button>
+      <span id="status-global" class="status"></span>
+    </section>
+
+    <section class="section">
+      <h2>Упражнения</h2>
+      <table class="table" id="exercises-table">
+        <thead>
+          <tr>
+            <th>Название</th>
+            <th>Ед.</th>
+            <th>Шаг</th>
+            <th>Дневной максимум</th>
+            <th>Активно</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>Добавить / изменить упражнение</h3>
+      <div class="grid">
+        <label>
+          ID (если пусто — будет создан):
+          <input type="text" id="ex-id" />
+        </label>
+        <label>
+          Название:
+          <input type="text" id="ex-name" />
+        </label>
+        <label>
+          Единица измерения:
+          <input type="text" id="ex-unit" placeholder="повторений" />
+        </label>
+        <label>
+          Шаг предложения:
+          <input type="number" id="ex-step" min="1" value="10" />
+        </label>
+        <label>
+          Дневной максимум (0 — нет лимита):
+          <input type="number" id="ex-max" min="0" value="100" />
+        </label>
+        <label>
+          <input type="checkbox" id="ex-active" checked />
+          Активно
+        </label>
+      </div>
+      <button id="ex-save">Сохранить упражнение</button>
+      <button id="ex-delete">Удалить по ID</button>
+      <span id="status-ex" class="status"></span>
+    </section>
+
+    <section class="section">
+      <h2>Сайты и триггеры</h2>
+      <p class="small">
+        Паттерн домена, например: <code>youtube.com</code>, <code>twitter.com</code>. Для
+        всех поддоменов (<code>www.youtube.com</code>, <code>m.youtube.com</code>) матчится автоматически.
+      </p>
+      <button id="btn-add-current-site">Добавить текущий сайт</button>
+      <table class="table" id="sites-table">
+        <thead>
+          <tr>
+            <th>Вкл.</th>
+            <th>Домен</th>
+            <th>Минут на сайте</th>
+            <th>Переходов</th>
+            <th>Комбинация</th>
+            <th>Тип уведомления</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <h3>Добавить / изменить сайт</h3>
+      <div class="grid">
+        <label>
+          ID (если пусто — будет создан):
+          <input type="text" id="site-id" />
+        </label>
+        <label>
+          Домен (паттерн):
+          <input type="text" id="site-pattern" placeholder="пример: youtube.com" />
+        </label>
+        <label>
+          Минут на сайте до напоминания (0 — не использовать):
+          <input type="number" id="site-minutes" min="0" />
+        </label>
+        <label>
+          Переходов внутри сайта (0 — не использовать):
+          <input type="number" id="site-transitions" min="0" />
+        </label>
+        <label>
+          Комбинация условий:
+          <select id="site-combine">
+            <option value="OR">ИЛИ</option>
+            <option value="AND">И</option>
+          </select>
+        </label>
+        <label>
+          Тип уведомления:
+          <select id="site-notification-type">
+            <option value="inherit">Наследовать глобальный</option>
+            <option value="blocking">Блокирующее</option>
+            <option value="nonblocking">Неблокирующее</option>
+          </select>
+        </label>
+        <label>
+          <input type="checkbox" id="site-enabled" checked />
+          Включено
+        </label>
+      </div>
+      <button id="site-save">Сохранить сайт</button>
+      <button id="site-delete">Удалить по ID</button>
+      <span id="status-site" class="status"></span>
+    </section>
+
+    <section class="section">
+      <h2>Импорт/экспорт</h2>
+      <button id="btn-export">Экспортировать в JSON</button>
+      <input type="file" id="file-import" accept="application/json" />
+      <button id="btn-import">Импортировать JSON</button>
+      <span id="status-import" class="status"></span>
+    </section>
+
+    <section class="section">
+      <h2>Статистика</h2>
+      <div class="field-row">
+        <label>Период:
+          <select id="stats-period">
+            <option value="1">Сегодня</option>
+            <option value="7">7 дней</option>
+            <option value="14">14 дней</option>
+            <option value="30">30 дней</option>
+          </select>
+        </label>
+        <button id="btn-stats-refresh">Обновить</button>
+      </div>
+      <canvas id="stats-canvas" width="700" height="200"></canvas>
+      <table class="table" id="stats-table">
+        <thead>
+          <tr>
+            <th>Дата</th>
+            <th>Упражнение</th>
+            <th>Количество</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
